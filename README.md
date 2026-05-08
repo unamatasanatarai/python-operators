@@ -4,6 +4,10 @@
 ![Language: JavaScript](https://img.shields.io/badge/Language-JS-F7DF1E.svg)
 ![Language: CSS](https://img.shields.io/badge/Language-CSS-1572B6.svg)
 ![Language: HTML](https://img.shields.io/badge/Language-HTML-E34F26.svg)
+![Maintenance](https://img.shields.io/badge/Maintained%3F-Maybe-blue.svg)
+![Status](https://img.shields.io/badge/Status-v1.0.0-green.svg)
+
+![Look at me](look-at-me.png)
 
 **🌐 Official Page: [unamatasanatarai.github.io/python-operators](https://unamatasanatarai.github.io/python-operators/)**
 
