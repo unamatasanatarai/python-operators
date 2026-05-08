@@ -621,6 +621,31 @@ kbd {
     padding: 1.5rem;
 }
 
+.qr-top-right {
+    position: absolute;
+    top: 0.5rem;
+    right: 2.5rem;
+    padding: 1.5rem; /* Large invisible hit-area */
+    z-index: 100;
+}
+
+.qr-code {
+    width: 60px;
+    height: 60px;
+    padding: 4px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: top right;
+    cursor: zoom-in;
+    display: block;
+}
+
+.qr-top-right:hover .qr-code {
+    transform: scale(2.5);
+}
+
 /* Footer */
 .main-footer {
     text-align: center;

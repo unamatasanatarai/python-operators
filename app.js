@@ -583,6 +583,12 @@ function showDetail(op, updateUrl = true) {
 
   detailBody.innerHTML = `
     <div class="detail-body">
+        <div class="qr-top-right">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}" 
+                 alt="QR code for ${op.name}" 
+                 class="qr-code"
+                 loading="lazy">
+        </div>
         <div class="symbol">${op.symbol}</div>
         <div class="side-badge">${op.category}</div>
         <h2>${op.name}</h2>
@@ -707,7 +713,7 @@ window.addEventListener('keydown', (e) => {
       renderOperators();
       return;
     }
-    
+
     if (!detailOverlay.classList.contains('hidden')) {
       hideDetail();
     }
