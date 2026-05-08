@@ -38,6 +38,11 @@
                             <input type="text" id="search-input" placeholder="Search Python operators..."
                                 aria-label="Search operators">
                             <div class="search-addons">
+                                <button id="clear-search-btn" class="icon-link hidden" title="Clear search">
+                                    <svg viewBox="0 0 24 24" width="20" height="20">
+                                        <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                                    </svg>
+                                </button>
                                 <kbd>/</kbd>
                                 <button id="random-btn" class="icon-link" title="Pick a random operator">
                                     <svg viewBox="0 0 24 24" width="20" height="20">
@@ -65,6 +70,15 @@
                         <button id="clear-search" class="btn btn-outline">Clear Search</button>
                     </div>
                 </section>
+
+                <!-- Detail Overlay -->
+                <div id="detail-overlay" class="detail-overlay hidden">
+                    <div class="overlay-backdrop"></div>
+                    <div class="detail-content">
+                        <button id="close-detail" class="close-btn" aria-label="Close detail view">&times;</button>
+                        <div id="detail-body"></div>
+                    </div>
+                </div>
             </main>
 
             <footer class="main-footer">

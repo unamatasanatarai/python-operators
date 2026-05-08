@@ -367,9 +367,24 @@ const operators = [
   }
 ];
 
+/**
+ * Utility: Converts text to URL-friendly slug
+ */
+const slugify = (text) => text
+  .toLowerCase()
+  .replace(/\s+/g, '-')
+  .replace(/[^\w-]+/g, '');
+
+// Process operators to add slugs for routing
+operators.forEach(op => {
+  op.slug = slugify(op.name);
+  op.categorySlug = slugify(op.category);
+});
+
 // 2. State Management
 let currentFilter = 'all';
 let searchQuery = '';
+let isInitialLoad = true;
 
 // 3. Selectors
 const grid = document.getElementById('operator-grid');
@@ -379,6 +394,70 @@ const emptyState = document.getElementById('empty-state');
 const randomBtn = document.getElementById('random-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const clearSearchBtn = document.getElementById('clear-search');
+const clearInputBtn = document.getElementById('clear-search-btn');
+
+// New Selectors for Detail View
+const detailOverlay = document.getElementById('detail-overlay');
+const detailBody = document.getElementById('detail-body');
+const closeDetailBtn = document.getElementById('close-detail');
+const overlayBackdrop = document.querySelector('.overlay-backdrop');
+
+// 3.5 Router Implementation
+const Router = {
+  routes: {
+    home: '/',
+    category: '/:category',
+    item: '/:category/:item'
+  },
+
+  init() {
+    window.addEventListener('hashchange', () => {
+      isInitialLoad = false;
+      this.handleRoute();
+    });
+    this.handleRoute();
+  },
+
+  navigate(path) {
+    // Ensure path starts with /
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    window.location.hash = cleanPath;
+  },
+
+  handleRoute() {
+    // Get hash and remove #/ or # prefix
+    const hash = window.location.hash.replace(/^#\/?/, '');
+    const parts = hash.split('/').filter(p => p !== '');
+
+    if (parts.length === 0) {
+      // Home
+      currentFilter = 'all';
+      hideDetail(false);
+    } else if (parts.length === 1) {
+      // Category
+      const catSlug = parts[0];
+      const category = operators.find(op => op.categorySlug === catSlug)?.category;
+      currentFilter = category || 'all';
+      hideDetail(false);
+    } else if (parts.length === 2) {
+      // Item
+      const catSlug = parts[0];
+      const itemSlug = parts[1];
+      const category = operators.find(op => op.categorySlug === catSlug)?.category;
+      const operator = operators.find(op => op.slug === itemSlug);
+
+      currentFilter = category || 'all';
+      if (operator) {
+        showDetail(operator, false);
+      } else {
+        hideDetail();
+      }
+    }
+
+    updateFilterUI();
+    renderOperators();
+  }
+};
 
 // 4. Core Functions
 
@@ -420,7 +499,8 @@ function renderOperators() {
 function createOperatorCard(op) {
   const article = document.createElement('article');
   article.className = 'operator-card';
-  article.id = `op-${op.name.toLowerCase().replace(/\s+/g, '-')}`;
+  article.id = `op-${op.slug}`;
+  article.style.cursor = 'pointer';
 
   article.innerHTML = `
         <div class="card-header">
@@ -437,12 +517,12 @@ function createOperatorCard(op) {
                 <code>${op.example}</code>
                 <div class="result-line"># Result: ${op.result}</div>
             </div>
-            ${op.notes ? `<p class="notes">${op.notes}</p>` : ''}
         </div>
     `;
 
   // Add Copy logic
   article.querySelector('.copy-btn').addEventListener('click', (e) => {
+    e.stopPropagation(); // Don't trigger card click
     const btn = e.currentTarget;
     const code = btn.dataset.code;
     navigator.clipboard.writeText(code).then(() => {
@@ -456,6 +536,9 @@ function createOperatorCard(op) {
     });
   });
 
+  // Card click triggers detail view
+  article.addEventListener('click', () => showDetail(op));
+
   return article;
 }
 
@@ -468,19 +551,88 @@ function setupFilters() {
   categoryFilters.innerHTML = '';
   categories.forEach(cat => {
     const btn = document.createElement('button');
+    const slug = cat === 'all' ? '' : slugify(cat);
     btn.className = `filter-btn ${cat === currentFilter ? 'active' : ''}`;
     btn.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
     btn.dataset.category = cat;
 
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentFilter = cat;
-      renderOperators();
+      Router.navigate(slug ? `/${slug}` : '/');
     });
 
     categoryFilters.appendChild(btn);
   });
+}
+
+/**
+ * Updates the filter buttons UI without full re-render of buttons
+ */
+function updateFilterUI() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.category === currentFilter);
+  });
+}
+
+/**
+ * Detail View Management
+ */
+function showDetail(op, updateUrl = true) {
+  if (updateUrl) {
+    Router.navigate(`/${op.categorySlug}/${op.slug}`);
+  }
+
+  detailBody.innerHTML = `
+    <div class="detail-body">
+        <div class="symbol">${op.symbol}</div>
+        <div class="side-badge">${op.category}</div>
+        <h2>${op.name}</h2>
+        <p class="description">${op.description}</p>
+        <div class="example-box">
+            <div class="code-block">
+                <button class="copy-btn" title="Copy to clipboard" data-code="${op.example.replace(/"/g, '&quot;')}">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                </button>
+                <code>${op.example}</code>
+                <div class="result-line"># Result: ${op.result}</div>
+            </div>
+            ${op.notes ? `<p class="notes" style="margin-top: 1.5rem; font-size: 1rem;">${op.notes}</p>` : ''}
+        </div>
+    </div>
+  `;
+
+  // Re-attach copy logic for detail view
+  detailBody.querySelector('.copy-btn').addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    const code = btn.dataset.code;
+    navigator.clipboard.writeText(code).then(() => {
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<span style="font-size: 10px; font-weight: 700;">COPIED!</span>';
+      setTimeout(() => btn.innerHTML = originalHtml, 2000);
+    });
+  });
+
+  detailOverlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function hideDetail(updateUrl = true) {
+  if (updateUrl && !detailOverlay.classList.contains('hidden')) {
+    // If this was the first page loaded (permalink), go to home
+    if (isInitialLoad) {
+      isInitialLoad = false;
+      Router.navigate('/');
+      return;
+    }
+    // Otherwise, if we are in a deep link, go back in history
+    if (window.location.hash.split('/').length > 2) {
+      history.back();
+      return;
+    }
+    const path = currentFilter === 'all' ? '/' : `/${slugify(currentFilter)}`;
+    Router.navigate(path);
+  }
+  detailOverlay.classList.add('hidden');
+  document.body.style.overflow = '';
 }
 
 /**
@@ -490,20 +642,13 @@ function pickRandom() {
   const randomIndex = Math.floor(Math.random() * operators.length);
   const op = operators[randomIndex];
 
-  // Reset filters to show all so we can find the random one
-  currentFilter = 'all';
-  searchQuery = '';
-  searchInput.value = '';
-  setupFilters();
-  renderOperators();
+  showDetail(op);
 
-  const cardId = `op-${op.name.toLowerCase().replace(/\s+/g, '-')}`;
+  // Also scroll to it in the background if possible
+  const cardId = `op-${op.slug}`;
   const element = document.getElementById(cardId);
-
   if (element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    element.classList.add('highlight-card');
-    setTimeout(() => element.classList.remove('highlight-card'), 2000);
   }
 }
 
@@ -526,6 +671,15 @@ function initTheme() {
 
 searchInput.addEventListener('input', (e) => {
   searchQuery = e.target.value;
+  clearInputBtn.classList.toggle('hidden', searchQuery === '');
+  renderOperators();
+});
+
+clearInputBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  searchQuery = '';
+  clearInputBtn.classList.add('hidden');
+  searchInput.focus();
   renderOperators();
 });
 
@@ -535,20 +689,38 @@ themeToggle.addEventListener('click', toggleTheme);
 clearSearchBtn.addEventListener('click', () => {
   searchInput.value = '';
   searchQuery = '';
+  clearInputBtn.classList.add('hidden');
   renderOperators();
 });
 
-// Keyboard shortcut: '/' to focus search
+// Keyboard shortcut: '/' to focus search, ESC to close detail or clear search
 window.addEventListener('keydown', (e) => {
   if (e.key === '/' && document.activeElement !== searchInput) {
     e.preventDefault();
     searchInput.focus();
   }
+  if (e.key === 'Escape') {
+    if (document.activeElement === searchInput && searchQuery !== '') {
+      searchInput.value = '';
+      searchQuery = '';
+      clearInputBtn.classList.add('hidden');
+      renderOperators();
+      return;
+    }
+    
+    if (!detailOverlay.classList.contains('hidden')) {
+      hideDetail();
+    }
+  }
 });
+
+// Detail View Closing
+closeDetailBtn.addEventListener('click', () => hideDetail());
+overlayBackdrop.addEventListener('click', () => hideDetail());
 
 // 6. Initialization
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   setupFilters();
-  renderOperators();
+  Router.init(); // This will trigger handleRoute and renderOperators
 });
