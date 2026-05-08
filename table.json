@@ -1,0 +1,362 @@
+[
+  {
+    "symbol": "+",
+    "name": "Addition",
+    "category": "Arithmetic",
+    "description": "Adds two operands",
+    "example": "10 + 5",
+    "result": "15",
+    "notes": ""
+  },
+  {
+    "symbol": "-",
+    "name": "Subtraction",
+    "category": "Arithmetic",
+    "description": "Subtracts second operand from the first",
+    "example": "10 - 5",
+    "result": "5",
+    "notes": ""
+  },
+  {
+    "symbol": "*",
+    "name": "Multiplication",
+    "category": "Arithmetic",
+    "description": "Multiplies two operands",
+    "example": "10 * 5",
+    "result": "50",
+    "notes": ""
+  },
+  {
+    "symbol": "/",
+    "name": "Division",
+    "category": "Arithmetic",
+    "description": "Divides first operand by the second (float)",
+    "example": "10 / 3",
+    "result": "3.333...",
+    "notes": "Always returns a float, even if the result is a whole number."
+  },
+  {
+    "symbol": "%",
+    "name": "Modulus",
+    "category": "Arithmetic",
+    "description": "Returns the division remainder",
+    "example": "10 % 3",
+    "result": "1",
+    "notes": "Useful for checking if a number is even or odd (e.g., x % 2 == 0)."
+  },
+  {
+    "symbol": "**",
+    "name": "Exponentiation",
+    "category": "Arithmetic",
+    "description": "Left operand raised to the power of right",
+    "example": "2 ** 3",
+    "result": "8",
+    "notes": ""
+  },
+  {
+    "symbol": "//",
+    "name": "Floor Division",
+    "category": "Arithmetic",
+    "description": "Divides and returns the integer (rounds down)",
+    "example": "10 // 3",
+    "result": "3",
+    "notes": "Also known as integer division. It truncates the fractional part."
+  },
+  {
+    "symbol": "=",
+    "name": "Assignment",
+    "category": "Assignment",
+    "description": "Assigns value to variable",
+    "example": "x = 5",
+    "result": "x = 5",
+    "notes": ""
+  },
+  {
+    "symbol": "+=",
+    "name": "Add and assign",
+    "category": "Assignment",
+    "description": "Adds and assigns",
+    "example": "x += 3",
+    "result": "x = x + 3",
+    "notes": ""
+  },
+  {
+    "symbol": "-=",
+    "name": "Subtract and assign",
+    "category": "Assignment",
+    "description": "Subtracts and assigns",
+    "example": "x -= 3",
+    "result": "x = x - 3",
+    "notes": ""
+  },
+  {
+    "symbol": "*=",
+    "name": "Multiply and assign",
+    "category": "Assignment",
+    "description": "Multiplies and assigns",
+    "example": "x *= 3",
+    "result": "x = x * 3",
+    "notes": ""
+  },
+  {
+    "symbol": "/=",
+    "name": "Divide and assign",
+    "category": "Assignment",
+    "description": "Divides and assigns",
+    "example": "x /= 3",
+    "result": "x = x / 3",
+    "notes": ""
+  },
+  {
+    "symbol": "%=",
+    "name": "Modulus and assign",
+    "category": "Assignment",
+    "description": "Applies modulus and assigns",
+    "example": "x %= 3",
+    "result": "x = x % 3",
+    "notes": ""
+  },
+  {
+    "symbol": "//=",
+    "name": "Floor divide and assign",
+    "category": "Assignment",
+    "description": "Applies floor division and assigns",
+    "example": "x //= 3",
+    "result": "x = x // 3",
+    "notes": ""
+  },
+  {
+    "symbol": "**=",
+    "name": "Exponentiate and assign",
+    "category": "Assignment",
+    "description": "Applies exponentiation and assigns",
+    "example": "x **= 3",
+    "result": "x = x ** 3",
+    "notes": ""
+  },
+  {
+    "symbol": "&=",
+    "name": "Bitwise AND and assign",
+    "category": "Assignment",
+    "description": "Applies bitwise AND and assigns",
+    "example": "x &= 3",
+    "result": "x = x & 3",
+    "notes": ""
+  },
+  {
+    "symbol": "|=",
+    "name": "Bitwise OR and assign",
+    "category": "Assignment",
+    "description": "Applies bitwise OR and assigns",
+    "example": "x |= 3",
+    "result": "x = x | 3",
+    "notes": ""
+  },
+  {
+    "symbol": "^=",
+    "name": "Bitwise XOR and assign",
+    "category": "Assignment",
+    "description": "Applies bitwise XOR and assigns",
+    "example": "x ^= 3",
+    "result": "x = x ^ 3",
+    "notes": ""
+  },
+  {
+    "symbol": ">>=",
+    "name": "Right shift and assign",
+    "category": "Assignment",
+    "description": "Applies right shift and assigns",
+    "example": "x >>= 3",
+    "result": "x = x >> 3",
+    "notes": ""
+  },
+  {
+    "symbol": "<<=",
+    "name": "Left shift and assign",
+    "category": "Assignment",
+    "description": "Applies left shift and assigns",
+    "example": "x <<= 3",
+    "result": "x = x << 3",
+    "notes": ""
+  },
+  {
+    "symbol": "==",
+    "name": "Equal",
+    "category": "Comparison",
+    "description": "Returns True if values are equal",
+    "example": "x == y",
+    "result": "Boolean",
+    "notes": "Checks if values are equal. Different from 'is'."
+  },
+  {
+    "symbol": "!=",
+    "name": "Not equal",
+    "category": "Comparison",
+    "description": "Returns True if values are not equal",
+    "example": "x != y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": ">",
+    "name": "Greater than",
+    "category": "Comparison",
+    "description": "Returns True if left value is greater",
+    "example": "x > y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "<",
+    "name": "Less than",
+    "category": "Comparison",
+    "description": "Returns True if left value is smaller",
+    "example": "x < y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": ">=",
+    "name": "Greater than or equal",
+    "category": "Comparison",
+    "description": "Returns True if left value is greater or equal",
+    "example": "x >= y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "<=",
+    "name": "Less than or equal",
+    "category": "Comparison",
+    "description": "Returns True if left value is smaller or equal",
+    "example": "x <= y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "and",
+    "name": "AND",
+    "category": "Logical",
+    "description": "Returns True if both statements are true",
+    "example": "x < 5 and x < 10",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "or",
+    "name": "OR",
+    "category": "Logical",
+    "description": "Returns True if one statement is true",
+    "example": "x < 5 or x < 4",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "not",
+    "name": "NOT",
+    "category": "Logical",
+    "description": "Reverses the result",
+    "example": "not(x < 5 and x < 10)",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "is",
+    "name": "Is",
+    "category": "Identity",
+    "description": "Returns True if both variables are the same object",
+    "example": "x is y",
+    "result": "Boolean",
+    "notes": "Checks object identity, not value equality. Use '==' for values."
+  },
+  {
+    "symbol": "is not",
+    "name": "Is not",
+    "category": "Identity",
+    "description": "Returns True if both variables are not the same object",
+    "example": "x is not y",
+    "result": "Boolean",
+    "notes": ""
+  },
+  {
+    "symbol": "in",
+    "name": "In",
+    "category": "Membership",
+    "description": "Returns True if value is present",
+    "example": "'a' in 'apple'",
+    "result": "True",
+    "notes": ""
+  },
+  {
+    "symbol": "not in",
+    "name": "Not in",
+    "category": "Membership",
+    "description": "Returns True if value is not present",
+    "example": "'z' not in 'apple'",
+    "result": "True",
+    "notes": ""
+  },
+  {
+    "symbol": "&",
+    "name": "AND",
+    "category": "Bitwise",
+    "description": "Sets each bit to 1 if both bits are 1",
+    "example": "x & y",
+    "result": "0",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": "|",
+    "name": "OR",
+    "category": "Bitwise",
+    "description": "Sets each bit to 1 if one of two bits is 1",
+    "example": "x | y",
+    "result": "14",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": "^",
+    "name": "XOR",
+    "category": "Bitwise",
+    "description": "Sets each bit to 1 if only one of two bits is 1",
+    "example": "x ^ y",
+    "result": "14",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": "~",
+    "name": "NOT",
+    "category": "Bitwise",
+    "description": "Inverts all the bits",
+    "example": "~x",
+    "result": "-11",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": "<<",
+    "name": "Left shift",
+    "category": "Bitwise",
+    "description": "Shift left by pushing zeros in from the right",
+    "example": "x << 2",
+    "result": "40",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": ">>",
+    "name": "Right shift",
+    "category": "Bitwise",
+    "description": "Shift right by pushing copies of the leftmost bit",
+    "example": "x >> 2",
+    "result": "2",
+    "notes": "Operates on the binary representation of integers."
+  },
+  {
+    "symbol": ":=",
+    "name": "Walrus",
+    "category": "Walrus",
+    "description": "Assigns values within an expression",
+    "example": "if (n := len(data)) > 10: print(n)",
+    "result": "Assignment expression",
+    "notes": "Introduced in Python 3.8. Allows assignment inside an expression."
+  }
+]
