@@ -5,6 +5,8 @@
 ![Language: CSS](https://img.shields.io/badge/Language-CSS-1572B6.svg)
 ![Language: HTML](https://img.shields.io/badge/Language-HTML-E34F26.svg)
 
+**🌐 Official Page: [unamatasanatarai.github.io/python-operators](https://unamatasanatarai.github.io/python-operators/)**
+
 A lightweight, fast, and interactive educational reference for Python operators. This project provides a comprehensive guide to Python's operator landscape, featuring live search, category filtering, and executable code examples designed for both beginners and experienced developers.
 
 ## Features
@@ -36,7 +38,7 @@ No installation or build steps are required. This is a pure static site.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/python-operators-reference.git
+   git clone https://github.com/unamatasanatarai/python-operators.git
    ```
 2. Open the project:
    - Simply open `index.html` in any modern web browser.
