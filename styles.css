@@ -236,26 +236,32 @@ kbd {
 
 .theme-fab {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: 2rem;
     right: 1.5rem;
-    z-index: 200;
+    z-index: 1100; /* Above detail overlay */
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 100%;
     box-shadow: var(--shadow-lg);
     background: var(--card-bg);
     border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-tap-highlight-color: transparent;
 }
 
-.theme-fab:hover {
-    transform: scale(1.1);
+.theme-fab:active {
+    transform: scale(0.9) !important;
 }
 
 .github-fab {
     position: fixed;
-    bottom: 5.75rem;
+    bottom: 6.25rem;
     right: 1.5rem;
-    z-index: 200;
+    z-index: 1100; /* Above detail overlay */
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 100%;
@@ -263,11 +269,32 @@ kbd {
     background: var(--card-bg);
     border: 1px solid var(--border);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-tap-highlight-color: transparent;
 }
 
-.github-fab:hover {
-    transform: scale(1.1);
-    color: var(--primary);
+.github-fab:active {
+    transform: scale(0.9) !important;
+}
+
+/* Theme Icon Toggling */
+.theme-fab .moon-icon {
+    display: none;
+}
+
+.theme-fab .sun-icon {
+    display: block;
+}
+
+[data-theme="dark"] .theme-fab .moon-icon {
+    display: block;
+}
+
+[data-theme="dark"] .theme-fab .sun-icon {
+    display: none;
 }
 
 /* Main Grid */

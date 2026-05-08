@@ -661,16 +661,32 @@ function pickRandom() {
 /**
  * Theme Management
  */
-function toggleTheme() {
+function toggleTheme(e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const newTheme = isDark ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
+  applyTheme(newTheme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const label = theme === 'dark' ? 'Toggle light mode' : 'Toggle dark mode';
+  themeToggle.setAttribute('aria-label', label);
+  themeToggle.title = label;
+  
+  try {
+    localStorage.setItem('theme', theme);
+  } catch (err) {
+    console.warn('LocalStorage not available for theme saving:', err);
+  }
 }
 
 function initTheme() {
   const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
+  applyTheme(savedTheme);
 }
 
 // 5. Event Listeners
@@ -691,6 +707,7 @@ clearInputBtn.addEventListener('click', () => {
 
 randomBtn.addEventListener('click', pickRandom);
 themeToggle.addEventListener('click', toggleTheme);
+themeToggle.addEventListener('touchstart', toggleTheme, { passive: false });
 
 clearSearchBtn.addEventListener('click', () => {
   searchInput.value = '';

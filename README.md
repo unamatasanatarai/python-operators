@@ -6,6 +6,7 @@
 ![Language: HTML](https://img.shields.io/badge/Language-HTML-E34F26.svg)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-Maybe-blue.svg)
 ![Status](https://img.shields.io/badge/Status-v1.0.0-green.svg)
+![Vibed](https://img.shields.io/badge/vibed-100%25-ff69b4.svg)
 
 ![Look at me](look-at-me.png)
 
